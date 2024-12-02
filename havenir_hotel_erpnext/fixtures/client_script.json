@@ -37,10 +37,65 @@
   "doctype": "Client Script",
   "dt": "Hotel Check In",
   "enabled": 1,
+  "modified": "2024-12-02 21:55:43.220624",
+  "module": "Havenir Hotel Erpnext",
+  "name": "CHECKIN ROUT to H Payment entry",
+  "script": "// frappe.ui.form.on('Hotel Check In', {\r\n//     refresh(frm) {\r\n//         if (!frm.is_new()) {\r\n//         frm.add_custom_button(__('Payment'), () => {\r\n//             // Initialize room variable\r\n//             let room = '';\r\n\r\n//             // Check if the rooms child table exists and has entries\r\n//             if (frm.doc.rooms && frm.doc.rooms.length > 0) {\r\n//                 // Extract the room_no from the first row\r\n//                 room = frm.doc.rooms[0].room_no;\r\n//             }\r\n\r\n//             // Set route options to pass values to the new Hotel Payment Entry\r\n//             frappe.route_options = {\r\n//                 'check_in': frm.doc.name,\r\n//                 'customer': frm.doc.customer,\r\n//                 'check_in_date': frm.doc.check_in_date,\r\n//                 'check_out_date': frm.doc.check_out_date,\r\n//                 'total_amount': frm.doc.total_amount,\r\n//                 'room': room // Add the room number from the first row\r\n                \r\n//             };\r\n\r\n//             // Create the new Hotel Payment Entry document\r\n//             frappe.new_doc('Hotel Payment Entry');\r\n//         });\r\n//     }}\r\n// });\r\n\r\n\r\nfrappe.ui.form.on('Hotel Check In', {\r\n\trefresh(frm) {\r\n\t\r\nfrm.add_custom_button(__(\"Payment\"), () => {\r\n\r\n    frappe.route_options = {\r\n                'check_in_id': frm.doc.name,\r\n                'guest_id': frm.doc.guest_id,\r\n                'guest_name': frm.doc.guest_name,\r\n                'party_type': 'Customer',\r\n                'party': frm.doc.guest_name\r\n    };\r\n\r\n    frappe.new_doc(\"Payment Entry\");\r\n});\r\n\t\r\n\t}\r\n})\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
+  "modified": "2024-12-02 21:54:06.026551",
+  "module": "Havenir Hotel Erpnext",
+  "name": "Total in checkin",
+  "script": "frappe.ui.form.on('Hotel Check In', {\r\n    // Trigger calculation when rows are added or removed\r\n    rooms_add: function (frm) {\r\n        calculate_total_amount(frm);\r\n    },\r\n    rooms_remove: function (frm) {\r\n        calculate_total_amount(frm);\r\n    }\r\n});\r\n\r\nfrappe.ui.form.on('Hotel Check In Room', {\r\n    room_no: function (frm, cdt, cdn) {\r\n        const child = locals[cdt][cdn];\r\n        if (child.room_no) {\r\n            // Fetch the price for the selected room from the linked Doctype\r\n            frappe.db.get_value('Rooms', { name: child.room_no }, 'price')\r\n                .then(r => {\r\n                    if (r && r.message) {\r\n                        const price = r.message.price || 0;\r\n                        frappe.model.set_value(cdt, cdn, 'price', price);\r\n\r\n                        // Recalculate the total amount\r\n                        calculate_total_amount(frm);\r\n                    }\r\n                });\r\n        }\r\n    },\r\n    price: function (frm, cdt, cdn) {\r\n        // Recalculate the total amount if the price field changes\r\n        calculate_total_amount(frm);\r\n    }\r\n});\r\n\r\n// Function to calculate the total amount\r\nfunction calculate_total_amount(frm) {\r\n    let total = 0;\r\n\r\n    // Loop through all rows in the child table\r\n    (frm.doc.rooms || []).forEach(room => {\r\n        total += room.price || 0; // Add the price of each room\r\n    });\r\n\r\n    // Update the total_amount field in the parent Doctype\r\n    frm.set_value('total_amount', total);\r\n}\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Payment Entry",
+  "enabled": 1,
+  "modified": "2024-12-02 21:54:36.032743",
+  "module": "Havenir Hotel Erpnext",
+  "name": "auto fill payment entry name",
+  "script": "// frappe.ui.form.on('Payment Entry', {\n// \trefresh(frm) {\n// \t\t// your code here\n// \t}\n// })\n\nfrappe.ui.form.on('Payment Entry', {\n    refresh: function(frm) {\n        // Automatically update the \"party\" field when the form is loaded\n        if (frm.doc.guest_name && !frm.doc.party) {\n            frm.set_value('party', frm.doc.guest_name);\n        }\n    },\n    patient_name: function(frm) {\n        // Update the \"party\" field whenever the \"Patient Name\" field is changed\n        frm.set_value('party', frm.doc.guest_name);\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
+  "modified": "2024-12-02 21:54:53.706735",
+  "module": "Havenir Hotel Erpnext",
+  "name": "Check in filter room",
+  "script": "frappe.ui.form.on('Hotel Check In', {\r\n    refresh: function(frm) {\r\n        // Apply filter when the form is loaded or refreshed\r\n        frm.fields_dict['rooms'].grid.get_field('room_no').get_query = function(doc, cdt, cdn) {\r\n            return {\r\n                filters: {\r\n                    'room_status': ['!=', 'Checked In']\r\n                }\r\n            };\r\n        };\r\n    }\r\n});\r\n\r\nfrappe.ui.form.on('Hotel Check In Room', {\r\n    room_no: function (frm, cdt, cdn) {\r\n        let child = locals[cdt][cdn];\r\n\r\n        // Apply filter dynamically when room_no is selected\r\n        frm.fields_dict['rooms'].grid.get_field('room_no').get_query = function(doc, cdt, cdn) {\r\n            return {\r\n                filters: {\r\n                    'room_status': ['!=', 'Checked In']\r\n                }\r\n            };\r\n        };\r\n    }\r\n});\r\n\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
   "modified": "2024-11-19 22:37:25.214078",
   "module": "Havenir Hotel Erpnext",
   "name": "checkin to checkout chiled button",
   "script": "\r\n\r\nfrappe.ui.form.on('Hotel Check In Room', {\r\n    check_out: function (frm, cdt, cdn) {\r\n        // Get the clicked row data\r\n        let row = locals[cdt][cdn];\r\n        \r\n        // Redirect to Hotel Check Out doctype\r\n        frappe.route_options = {\r\n            room: row.room_no,\r\n            customer: row.guest_name,// Pass the room field value (replace 'room' with the actual fieldname if different)\r\n        };\r\n        frappe.set_route('Form', 'Hotel Check Out', 'new');\r\n    }\r\n});\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
+  "modified": "2024-12-02 21:55:11.049943",
+  "module": "Havenir Hotel Erpnext",
+  "name": "hotel check in guestname to child table",
+  "script": "// Custom script for Hotel Check In\r\nfrappe.ui.form.on('Hotel Check In', {\r\n    refresh: function(frm) {\r\n        // Ensure child table is populated correctly when form is refreshed\r\n        frm.trigger('set_guest_name_in_rooms');\r\n    },\r\n    set_guest_name_in_rooms: function(frm) {\r\n        // Iterate through child table rows and update guest_name field\r\n        if (frm.doc.guest_name && frm.doc.rooms) {\r\n            frm.doc.rooms.forEach(row => {\r\n                if (!row.guest_name) {  // Update only if guest_name is empty\r\n                    frappe.model.set_value(row.doctype, row.name, 'guest_name', frm.doc.guest_name);\r\n                }\r\n            });\r\n        }\r\n    },\r\n    guest_name: function(frm) {\r\n        // Trigger when guest_name in parent is changed\r\n        frm.trigger('set_guest_name_in_rooms');\r\n    }\r\n});\r\n\r\n// Trigger for the child table to set guest_name on adding a new row\r\nfrappe.ui.form.on('Hotel Check In Room', {\r\n    rooms_add: function(frm, cdt, cdn) {\r\n        const row = locals[cdt][cdn];\r\n        if (frm.doc.guest_name) {\r\n            frappe.model.set_value(cdt, cdn, 'guest_name', frm.doc.guest_name);\r\n        }\r\n    }\r\n});\r\n",
   "view": "Form"
  },
  {
