@@ -1,0 +1,276 @@
+{
+ "actions": [],
+ "autoname": "field:room_number",
+ "creation": "2020-01-29 12:55:46.208299",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "fill_the_information_to_add_a_new_unit_section",
+  "room_number",
+  "room_type",
+  "column_break_upiwf",
+  "room_name",
+  "check_in_id",
+  "room_status",
+  "column_break_tetv7",
+  "unit_class",
+  "guest_name",
+  "price",
+  "section_break_6",
+  "hall",
+  "number_of_toilets",
+  "single_bed",
+  "facilities",
+  "column_break_vvfb9",
+  "floor",
+  "block",
+  "kitchen",
+  "double_bed",
+  "image",
+  "section_break_jm8c1",
+  "description",
+  "item",
+  "item_group",
+  "check_in",
+  "check_out"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_name",
+   "fieldtype": "Data",
+   "label": "Unit Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Unit Status",
+   "options": "Available\nChecked In\nReserved\nRoom Service\nMaintenance",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Unit Type",
+   "options": "Room Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Unit Details"
+  },
+  {
+   "fieldname": "facilities",
+   "fieldtype": "Table MultiSelect",
+   "label": "Amenities",
+   "options": "Room Facilities",
+   "reqd": 1
+  },
+  {
+   "fieldname": "room_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Unit Number",
+   "reqd": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "check_in_id",
+   "fieldtype": "Link",
+   "label": "Check In ID",
+   "options": "Hotel Check In",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "check_in_id.guest_name",
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "room_type.price",
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price (Per Night)",
+   "precision": "2",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "fieldname": "kitchen",
+   "fieldtype": "Link",
+   "label": "Kitchen",
+   "options": "Hotel Kitchen",
+   "reqd": 1
+  },
+  {
+   "fieldname": "number_of_toilets",
+   "fieldtype": "Int",
+   "label": "Number Of Toilets",
+   "reqd": 1
+  },
+  {
+   "fieldname": "hall",
+   "fieldtype": "Link",
+   "label": "Hall",
+   "options": "Hotel Hall",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "room_type.capacity",
+   "fieldname": "single_bed",
+   "fieldtype": "Int",
+   "label": "Single Bed"
+  },
+  {
+   "fetch_from": "room_type.extra_beds",
+   "fieldname": "double_bed",
+   "fieldtype": "Int",
+   "label": "Double Bed"
+  },
+  {
+   "fieldname": "unit_class",
+   "fieldtype": "Link",
+   "label": "Unit Class",
+   "options": "Unit Class",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_upiwf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_tetv7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "fill_the_information_to_add_a_new_unit_section",
+   "fieldtype": "Section Break",
+   "label": "Fill the information to add a new unit."
+  },
+  {
+   "fieldname": "floor",
+   "fieldtype": "Link",
+   "label": "Floor",
+   "options": "Hotel Floors",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_vvfb9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "floor.block",
+   "fieldname": "block",
+   "fieldtype": "Link",
+   "label": "Block",
+   "options": "Hotel Block",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_jm8c1",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "check_in",
+   "fieldtype": "Datetime",
+   "label": "check in"
+  },
+  {
+   "fieldname": "check_out",
+   "fieldtype": "Datetime",
+   "label": "check out"
+  }
+ ],
+ "icon": "calender",
+ "image_field": "image",
+ "links": [],
+ "make_attachments_public": 1,
+ "modified": "2024-11-30 19:20:18.512438",
+ "modified_by": "Administrator",
+ "module": "Havenir Hotel Erpnext",
+ "name": "Rooms",
+ "name_case": "UPPER CASE",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Item Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

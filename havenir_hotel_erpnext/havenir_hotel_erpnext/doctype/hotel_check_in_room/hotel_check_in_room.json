@@ -1,0 +1,139 @@
+{
+ "actions": [],
+ "creation": "2020-02-01 22:24:48.020303",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "room_no",
+  "column_break_2",
+  "check_out",
+  "room_type",
+  "column_break_4",
+  "price",
+  "guests_details_section",
+  "male",
+  "column_break_8",
+  "female",
+  "column_break_10",
+  "children",
+  "section_break_12",
+  "extra_bed_issued",
+  "column_break_14",
+  "details",
+  "guest_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "room_no",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room No",
+   "options": "Rooms",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "guests_details_section",
+   "fieldtype": "Section Break",
+   "label": "Guests Details"
+  },
+  {
+   "default": "1",
+   "fieldname": "male",
+   "fieldtype": "Int",
+   "label": "Adult(s)"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "female",
+   "fieldtype": "Int",
+   "label": "Children(s)"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "children",
+   "fieldtype": "Int",
+   "label": "Children"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Small Text",
+   "label": "Details"
+  },
+  {
+   "fieldname": "extra_bed_issued",
+   "fieldtype": "Int",
+   "label": "Extra Bed Issued"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "room_no.room_type",
+   "fieldname": "room_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Room Type",
+   "options": "Room Type",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Price",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "allow_in_quick_entry": 1,
+   "allow_on_submit": 1,
+   "bold": 1,
+   "fieldname": "check_out",
+   "fieldtype": "Button",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "<strong style=\"background-color: #83d8ef;\">Check Out</strong>"
+  },
+  {
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2024-11-19 23:22:13.537642",
+ "modified_by": "Administrator",
+ "module": "Havenir Hotel Erpnext",
+ "name": "Hotel Check In Room",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
