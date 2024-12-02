@@ -1,0 +1,57 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Guests",
+  "enabled": 1,
+  "modified": "2024-11-19 21:48:26.107659",
+  "module": "Havenir Hotel Erpnext",
+  "name": "Guest Name",
+  "script": "frappe.ui.form.on('Hotel Guests', {\n    first_name: function(frm) {\n        set_guest_name(frm);\n    },\n    middle_name: function(frm) {\n        set_guest_name(frm);\n    },\n    last_name: function(frm) {\n        set_guest_name(frm);\n    }\n});\n\nfunction set_guest_name(frm) {\n    // Combine first name, middle name, and last name conditionally\n    let full_name = [frm.doc.first_name, frm.doc.middle_name, frm.doc.last_name]\n        .filter(name => name) // Remove empty values\n        .join(' '); // Join remaining names with a single space\n\n    // Set the guest_name field\n    frm.set_value('guest_name', full_name);\n}\n\n\n\n// frappe.ui.form.on('Hotel Guests', {\n//     first_name: function(frm) {\n//         set_guest_name(frm);\n//     },\n//     middle_name: function(frm) {\n//         set_guest_name(frm);\n//     },\n//     last_name: function(frm) {\n//         set_guest_name(frm);\n//     }\n// });\n\n// function set_guest_name(frm) {\n//     // Combine first name, middle name, and last name with spaces\n//     let first_name = frm.doc.first_name || '';\n//     let middle_name = frm.doc.middle_name || '';\n//     let last_name = frm.doc.last_name || '';\n    \n//     // Set the guest_name field\n//     frm.set_value('guest_name', `${first_name} ${middle_name} ${last_name}`.trim());\n// }\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Guests",
+  "enabled": 1,
+  "modified": "2024-09-18 16:59:45.760347",
+  "module": "Havenir Hotel Erpnext",
+  "name": "Guest lable change on box",
+  "script": "frappe.ui.form.on('Hotel Guests', {\r\n    is_corporate: function(frm) {\r\n        toggle_first_name_label(frm);\r\n    },\r\n    refresh: function(frm) {\r\n        toggle_first_name_label(frm);  // Ensure the label is updated on form load\r\n    }\r\n});\r\n\r\nfunction toggle_first_name_label(frm) {\r\n    if (frm.doc.is_corporate) {\r\n        // Change label to 'Corporate Name' when checkbox is checked\r\n        frm.fields_dict['first_name'].df.label = \"Corporate Name\";\r\n        frm.fields_dict['nationality'].df.label = \"Country\";\r\n        frm.fields_dict['guest_information_section'].df.label = \"Corporate Information\";\r\n        frm.fields_dict['permanent_address'].df.label = \"Address\";\r\n        frm.fields_dict['work_phone_no'].df.label = \"Corporate Phone NO\";\r\n        frm.fields_dict['contact_no'].df.label = \"Contact Person NO\";\r\n    } else {\r\n        // Change label back to 'First Name' when checkbox is unchecked\r\n        frm.fields_dict['first_name'].df.label = \"First Name\";\r\n        frm.fields_dict['nationality'].df.label = \"Nationality\";\r\n        frm.fields_dict['guest_information_section'].df.label = \"Guest Information\";\r\n        frm.fields_dict['permanent_address'].df.label = \"Permanent Address\";\r\n        frm.fields_dict['work_phone_no'].df.label = \"Work Phone No\";\r\n        frm.fields_dict['contact_no'].df.label = \"Contact No\";\r\n    }\r\n    frm.refresh_field('first_name');  // Refresh the field to apply the label change\r\n    frm.refresh_field('nationality');\r\n    frm.refresh_field('guest_information_section');\r\n    frm.refresh_field('permanent_address');\r\n    frm.refresh_field('work_phone_no');\r\n    frm.refresh_field('contact_no');\r\n}\r\n\r\n\r\n\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
+  "modified": "2024-09-18 17:00:35.882488",
+  "module": "Havenir Hotel Erpnext",
+  "name": "check inout date set",
+  "script": "// frappe.ui.form.on('Hotel Check In', {\n// \trefresh(frm) {\n// \t\t// your code here\n// \t}\n// })\nfrappe.ui.form.on('Hotel Check In', {\n    rental_type: function(frm) {\n        if (frm.doc.rental_type === 'Daily') {\n            frm.set_value('period_nights', 1);\n        } else if (frm.doc.rental_type === 'Monthly') {\n            frm.set_value('period_nights', 30);\n        }\n        frm.trigger('set_checkout_date');  // Trigger the function to set checkout date\n    },\n    period_nights: function(frm) {\n        frm.trigger('set_checkout_date');  // Trigger the function to set checkout date\n    },\n    check_in: function(frm) {\n        frm.trigger('set_checkout_date');  // Trigger the function to set checkout date\n    },\n    set_checkout_date: function(frm) {\n        if (frm.doc.check_in && frm.doc.period_nights) {\n            // Calculate the checkout date\n            let check_in_date = frappe.datetime.add_days(frm.doc.check_in, frm.doc.period_nights);\n            frm.set_value('check_out', check_in_date);\n        }\n    }\n});\n\nfrappe.ui.form.on('Hotel Check In', {\n    refresh: function(frm) {\n        // Rename 'Save' button to 'Reservation' for new records\n        if (frm.is_new()) {\n            frm.page.btn_primary[0].innerText = __('Reservation');\n        }\n        \n        // Rename 'Submit' button to 'Check-in' after the form is saved (before submission)\n        if (!frm.is_new() && frm.doc.docstatus === 0) {\n            frm.page.set_primary_action(__('Check-in'), function() {\n                frm.save('Submit');\n            });\n        }\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Hotel Check In",
+  "enabled": 1,
+  "modified": "2024-11-19 22:37:25.214078",
+  "module": "Havenir Hotel Erpnext",
+  "name": "checkin to checkout chiled button",
+  "script": "\r\n\r\nfrappe.ui.form.on('Hotel Check In Room', {\r\n    check_out: function (frm, cdt, cdn) {\r\n        // Get the clicked row data\r\n        let row = locals[cdt][cdn];\r\n        \r\n        // Redirect to Hotel Check Out doctype\r\n        frappe.route_options = {\r\n            room: row.room_no,\r\n            customer: row.guest_name,// Pass the room field value (replace 'room' with the actual fieldname if different)\r\n        };\r\n        frappe.set_route('Form', 'Hotel Check Out', 'new');\r\n    }\r\n});\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Rooms",
+  "enabled": 1,
+  "modified": "2024-11-30 20:02:49.418097",
+  "module": "Havenir Hotel Erpnext",
+  "name": "room status",
+  "script": "frappe.ui.form.on('Rooms', {\r\n    room_status: function (frm) {\r\n        // Get the current room status from the form\r\n        const currentStatus = frm.doc.room_status;\r\n        \r\n        // Log for debugging\r\n        console.log(\"Current room status:\", currentStatus);\r\n        console.log(\"Previous room status:\", frm._last_room_status);\r\n        \r\n        // Only proceed if the room status has changed\r\n        if (frm._last_room_status !== currentStatus) {\r\n            // Define image paths for different statuses\r\n            const imagePaths = {\r\n                \"Available\": \"/files/available.jpg\",\r\n                \"Checked In\": \"/files/checked_in.jpg\",\r\n                \"Reserved\": \"/files/reserved.jpg\",\r\n                \"Room Service\": \"/files/room_service.jpg\",\r\n                \"Maintenance\": \"/files/maintenance.jpg\"\r\n            };\r\n\r\n            // Check if the current status has a corresponding image path\r\n            if (imagePaths[currentStatus]) {\r\n                // Set the image path in the form\r\n                frm.set_value('image', imagePaths[currentStatus]);\r\n                \r\n                // Log for debugging\r\n                console.log(\"Image set to:\", imagePaths[currentStatus]);\r\n            } else {\r\n                // If no image path is found, clear the image field\r\n                frm.set_value('image', null);\r\n                console.log(\"No image found for status:\", currentStatus);\r\n            }\r\n\r\n            // Refresh the image field to reflect the change\r\n            frm.refresh_field('image');\r\n\r\n            // Update the last known room status to the current status\r\n            frm._last_room_status = currentStatus;\r\n        }\r\n    },\r\n\r\n    // Ensure the last room status is initialized correctly on load\r\n    onload: function (frm) {\r\n        // Initialize the last room status to the current room status (or default if empty)\r\n        frm._last_room_status = frm.doc.room_status || \"Available\";  // Default to \"Available\" if no status is set\r\n        console.log(\"Initialized last room status:\", frm._last_room_status);\r\n    },\r\n\r\n    // Trigger room_status function when the document is loaded or refreshed\r\n    refresh: function (frm) {\r\n        frm.trigger('room_status');\r\n    }\r\n});\r\n",
+  "view": "Form"
+ }
+]
