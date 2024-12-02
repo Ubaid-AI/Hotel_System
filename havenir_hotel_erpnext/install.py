@@ -37,4 +37,4 @@ def before_install():
 
 def check_if_erpnext_installed():
     if "erpnext" not in frappe.get_installed_apps():
-        frappe.throw("Please install the ERPNext app first before installing Havenir Hotel ERPNext app.")
+        frappe.throw("Please install the ERPNext app first before installing Hotel MS app.")
