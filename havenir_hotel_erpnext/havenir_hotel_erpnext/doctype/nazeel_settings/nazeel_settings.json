@@ -14,24 +14,26 @@
  ],
  "fields": [
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "link_customer_to_guest",
    "fieldtype": "Check",
    "label": "Link Customer to Guest"
   },
   {
+   "default": "All Customer Groups",
    "fieldname": "customer_group",
    "fieldtype": "Link",
    "label": "Customer Group",
    "options": "Customer Group"
   },
   {
-   "default": "0",
+   "default": "1",
    "fieldname": "link_item_to_room",
    "fieldtype": "Check",
    "label": "Link Item to Room"
   },
   {
+   "default": "All Item Groups",
    "fieldname": "item_group",
    "fieldtype": "Link",
    "label": "Item Group",
@@ -41,7 +43,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-09-06 17:19:21.381416",
+ "modified": "2025-07-31 17:16:36.423117",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Nazeel Settings",
