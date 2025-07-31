@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestSession(FrappeTestCase):
+class TestHousekeepingRequest(FrappeTestCase):
 	pass

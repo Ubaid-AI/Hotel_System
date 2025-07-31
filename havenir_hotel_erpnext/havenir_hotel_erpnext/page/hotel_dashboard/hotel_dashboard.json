@@ -1,0 +1,20 @@
+{
+ "content": null,
+ "creation": "2024-12-04 23:35:03.309395",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "octicon octicon-home",
+ "idx": 0,
+ "modified": "2024-12-04 23:35:03.309395",
+ "modified_by": "Administrator",
+ "module": "Havenir Hotel Erpnext",
+ "name": "hotel-dashboard",
+ "owner": "Administrator",
+ "page_name": "hotel-dashboard",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Hotel Dashboard"
+}

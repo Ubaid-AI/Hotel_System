@@ -5,7 +5,7 @@
    "label": "Status Wise Units"
   }
  ],
- "content": "[{\"id\":\"lxer5iIxnO\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Nazeel MS</span>\",\"col\":12}},{\"id\":\"z06-djKcDH\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Status Wise Units\",\"col\":12}},{\"id\":\"UV9U23KEMk\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Reserved\",\"col\":4}},{\"id\":\"JL0E92qHIE\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Vacant\",\"col\":4}},{\"id\":\"UF4jHkEgTj\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Check-IN\",\"col\":4}},{\"id\":\"Z6PFfmjWb6\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"wa1idwK1dM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reservation\",\"col\":3}},{\"id\":\"GrSa_Q636Z\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"0A5pKVjOHU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units\",\"col\":3}},{\"id\":\"qeOtUYvkgp\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Reservation\",\"col\":3}},{\"id\":\"Hf0G0Oi2m5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Check Out\",\"col\":3}},{\"id\":\"QYm9g_kSIe\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"HsUJQutETZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Guests\",\"col\":3}},{\"id\":\"SOGvRepw7s\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice(Bills)\",\"col\":3}},{\"id\":\"129BzZnXha\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments\",\"col\":3}},{\"id\":\"iXQ0smwuw8\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Zgd6I31veq\",\"type\":\"card\",\"data\":{\"card_name\":\"Setups\",\"col\":3}}]",
+ "content": "[{\"id\":\"lxer5iIxnO\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Guest MS</span>\",\"col\":12}},{\"id\":\"z06-djKcDH\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Status Wise Units\",\"col\":12}},{\"id\":\"UV9U23KEMk\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Reserved\",\"col\":4}},{\"id\":\"JL0E92qHIE\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Vacant\",\"col\":4}},{\"id\":\"UF4jHkEgTj\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Check-IN\",\"col\":4}},{\"id\":\"Z6PFfmjWb6\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"wa1idwK1dM\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Reservation\",\"col\":3}},{\"id\":\"8SidFN-5zq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New HouseKeeping\",\"col\":3}},{\"id\":\"XYO61a0hfz\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Maintenance\",\"col\":3}},{\"id\":\"GrSa_Q636Z\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"0A5pKVjOHU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Units\",\"col\":3}},{\"id\":\"qeOtUYvkgp\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Reservation\",\"col\":3}},{\"id\":\"Hf0G0Oi2m5\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Check Out\",\"col\":3}},{\"id\":\"QYm9g_kSIe\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Dashboard\",\"col\":3}},{\"id\":\"HsUJQutETZ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Guests\",\"col\":3}},{\"id\":\"SOGvRepw7s\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice(Bills)\",\"col\":3}},{\"id\":\"129BzZnXha\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Payments\",\"col\":3}},{\"id\":\"YuYZszmJZp\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"ObU6VHMgck\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"HouseKeeping Request\",\"col\":3}},{\"id\":\"g1IJe3Y7fl\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Maintenance Request\",\"col\":3}},{\"id\":\"p3yJuZ594h\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Room Inspection\",\"col\":3}},{\"id\":\"iXQ0smwuw8\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"Zgd6I31veq\",\"type\":\"card\",\"data\":{\"card_name\":\"Setups\",\"col\":3}}]",
  "creation": "2024-07-06 14:11:05.309656",
  "custom_blocks": [],
  "docstatus": 0,
@@ -187,7 +187,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-11-26 21:15:50.972544",
+ "modified": "2024-12-18 01:20:19.736188",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Hotel MS",
@@ -224,6 +224,46 @@
    "doc_view": "List",
    "label": "Guests",
    "link_to": "Hotel Guests",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New HouseKeeping",
+   "link_to": "Housekeeping Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "HouseKeeping Request",
+   "link_to": "Housekeeping Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Maintenance",
+   "link_to": "Maintenance Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Maintenance Request",
+   "link_to": "Maintenance Request",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Room Inspection",
+   "link_to": "Room Inspection",
    "stats_filter": "[]",
    "type": "DocType"
   },

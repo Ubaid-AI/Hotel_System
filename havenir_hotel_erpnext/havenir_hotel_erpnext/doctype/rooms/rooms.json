@@ -7,8 +7,11 @@
  "engine": "InnoDB",
  "field_order": [
   "fill_the_information_to_add_a_new_unit_section",
+  "company",
   "room_number",
   "room_type",
+  "housekeeping_status",
+  "inspection_status",
   "column_break_upiwf",
   "room_name",
   "check_in_id",
@@ -209,13 +212,33 @@
    "fieldname": "check_out",
    "fieldtype": "Datetime",
    "label": "check out"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "default": "Cleaned",
+   "fieldname": "housekeeping_status",
+   "fieldtype": "Select",
+   "label": "housekeeping status",
+   "options": "Cleaned\nDirty"
+  },
+  {
+   "default": "Not Inspected",
+   "fieldname": "inspection_status",
+   "fieldtype": "Select",
+   "label": "Inspection",
+   "options": "Not Inspected\nClear\nDamaged"
   }
  ],
  "icon": "calender",
  "image_field": "image",
  "links": [],
  "make_attachments_public": 1,
- "modified": "2024-11-30 19:20:18.512438",
+ "modified": "2024-12-04 03:47:13.902496",
  "modified_by": "Administrator",
  "module": "Havenir Hotel Erpnext",
  "name": "Rooms",

@@ -8,6 +8,21 @@ from frappe.model.document import Document
 
 
 class HotelCheckOut(Document):
+    def before_submit(self):
+        # Validate if the room's check_in_id matches the check_in_id in the checkout
+        room = frappe.get_doc("Rooms", self.room)
+        # check_in_record = frappe.get_doc("Check In", self.check_in_id)
+
+        # Check if the check_in_id in the room matches the check_in_id in the checkout
+        if room.check_in_id != self.check_in_id:
+            frappe.throw(f"Room {self.room} is not associated with the provided check-in ID.")
+
+        # Validate if the room has been inspected before checkout
+        if room.inspection_status == "Not Inspected":
+            frappe.throw(f"Room {self.room} has not been inspected. Please complete the inspection before checkout.")
+        
+        frappe.msgprint(f"Proceeding with checkout for Room {self.room}.")
+
     def validate(self):
         room_doc = frappe.get_doc("Rooms", self.room)
         if (
@@ -17,6 +32,12 @@ class HotelCheckOut(Document):
             frappe.throw("Room Status is not Checked In")
 
     def on_submit(self):
+        room = frappe.get_doc("Rooms", self.room)
+        room.inspection_status = "Not Inspected"
+        room.save()
+
+        frappe.msgprint(f"Room {self.room} inspection status updated to 'Not Inspected' after checkout.")
+
         room_doc = frappe.get_doc("Rooms", self.room)
         room_doc.db_set("room_status", "Available")
         room_doc.db_set("check_in_id", None)
@@ -90,6 +111,18 @@ class HotelCheckOut(Document):
 
         # Creating Sales Invoice
         create_sales_invoice(self, all_checked_out)
+
+    def on_cancel(self):
+        # If room status is Available, update the room's check_in_id and status
+        room = frappe.get_doc("Rooms", self.room)
+
+        if room.room_status == "Available":
+            room.check_in_id = self.check_in_id  # Set the check_in_id from Hotel Check Out
+            room.room_status = "Checked In"  # Update room status to Checked In
+            room.save()
+
+            frappe.msgprint(f"Room {self.room} status reverted to 'Checked In' and check_in_id updated.")
+
     @frappe.whitelist()
     def get_check_in_details(self):
         room_doc = frappe.get_doc("Rooms", self.room)
@@ -456,3 +489,5 @@ def create_sales_invoice(self, all_checked_out):
                     sales_invoice_doc.discount_amount += self.food_discount
             sales_invoice_doc.insert(ignore_permissions=True)
             sales_invoice_doc.save()
+            
+    
