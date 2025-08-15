@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue';
 
 const rooms = ref([]);
-const loaded = ref(false);
 
 onMounted(async () => {
   try {
@@ -13,8 +12,6 @@ onMounted(async () => {
     }
   } catch (err) {
     console.error('Failed to load rooms', err);
-  } finally {
-    loaded.value = true;
   }
 });
 </script>
@@ -22,13 +19,11 @@ onMounted(async () => {
 <template>
   <main>
     <h1>Available Rooms</h1>
-    <ul v-if="rooms.length">
+
       <li v-for="room in rooms" :key="room.name">
         {{ room.room_number }} - {{ room.name }}
       </li>
     </ul>
-    <p v-else-if="loaded">No rooms available.</p>
-    <p v-else>Loading...</p>
   </main>
 </template>
 
