@@ -19,7 +19,7 @@ onMounted(async () => {
 <template>
   <main>
     <h1>Available Rooms</h1>
-    <ul>
+
       <li v-for="room in rooms" :key="room.name">
         {{ room.room_number }} - {{ room.name }}
       </li>
