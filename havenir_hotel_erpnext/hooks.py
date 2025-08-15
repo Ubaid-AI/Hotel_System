@@ -32,8 +32,11 @@ fixtures = [{
   'dt': 'Client Script', 'filters': [
       ['module', '=', 'Havenir Hotel Erpnext']
     ]
-}
+  }
 ]
+
+# Whitelist API methods before handling requests
+before_request = ["havenir_hotel_erpnext.whitelist_endpoint.run"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/havenir_hotel_erpnext/css/havenir_hotel_erpnext.css"

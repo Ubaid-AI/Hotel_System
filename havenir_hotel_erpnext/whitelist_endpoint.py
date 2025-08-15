@@ -18,6 +18,11 @@ methods = [
         "fn": "track_shipping",
         "args": {"allow_guest": True},
     },
+    {
+        "scope": "api.rooms",
+        "fn": "get_available_rooms",
+        "args": {"methods": ["GET"], "allow_guest": True},
+    },
 ]
 
 
